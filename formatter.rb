@@ -2,6 +2,12 @@ require_relative "board"
 require "terminal-table"
 
 module Formatter
+
+  def greeting
+    puts "####################################"
+    puts "#     Welcome to CLIn Boards       #"
+    puts "####################################"
+  end
   def welcome(boards)
     table = Terminal::Table.new
     table.title = "CLIn Boards"
@@ -70,7 +76,7 @@ module Formatter
     "#{completed}/#{checklist.size}"
   end
 
-  def exit
+  def finish
     puts "####################################"
     puts "#   Thanks for using CLIn Boards   #"
     puts "####################################"
