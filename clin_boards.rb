@@ -40,7 +40,14 @@ class ClinBoards
     data
   end
 
-  def create; end
+  def create
+    print "Name: "
+    name = gets.chomp
+    print "Description: "
+    description = gets.chomp
+    new_one = Board.new(name: name, description: description)
+    @store.push(new_one)
+  end
 
   def show(id); end
 
