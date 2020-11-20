@@ -33,13 +33,24 @@ module Formatter
 
   def show_list(id)
     (@store.select { |board| board.id == id.to_i })[0].lists.each do |list|
-      table = Terminal::Table.new
-      table.title = list.name.to_s
-      table.headings = %w[ID Title Members Labels Due\ Date Checklist]
-      table.rows = list.cards.map do |card|
-        [card.id, card.title, card.members.join(", "), card.labels.join(", "), card.due_date, n_check(card.checklist)]
-      end
-      puts table
+      show_list_table(list)
+    end
+  end
+
+  def show_list_table(list)
+    table = Terminal::Table.new
+    table.title = list.name.to_s
+    table.headings = %w[ID Title Members Labels Due\ Date Checklist]
+    table.rows = show_list_table_rows(list)
+    puts table
+  end
+
+  def show_list_table_rows(list)
+    list.cards.map do |card|
+      members = card.members.join(", ")
+      labels = card.labels.join(", ")
+      due_date = card.due_date
+      [card.id, card.title, members, labels, due_date, n_check(card.checklist)]
     end
   end
 

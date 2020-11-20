@@ -58,8 +58,8 @@ class ClinBoards
       puts "List options: create-list | update-list LISTNAME | delete-list LISTNAME"
       puts "Card options: create-card | checklist ID | update-card ID | delete-card ID"
       option_list, id_list = gets.chomp.split(" ")
-      show_options(option_list)
-      break if option_list = "back"
+      show_options(option_list, id_list)
+      break if option_list == "back"
     end
   end
 
@@ -71,14 +71,24 @@ class ClinBoards
 
   private
 
-  def show_options(option_list)
+  def show_options(option_list, id_list)
+    list_options(option_list, id_list)
+    card_options(option_list, id_list)
+  end
+
+  def list_options(option_list, id_list)
     case option_list
-    when "create-list" then create-list
-    when "update-list" then update-list(id_list)
-    when "delete-list" then delete-list(id_list)
-    when "create-card" then create-card(id_list)
-    when "update-card" then update-card(id_list)
-    when "delete-card" then delete-card(id_list)
+    when "create-list" then create_list
+    when "update-list" then update_list(id_list)
+    when "delete-list" then delete_list(id_list)
+    end
+  end
+
+  def card_options(option_list, id_list)
+    case option_list
+    when "create-card" then create_card(id_list)
+    when "update-card" then update_card(id_list)
+    when "delete-card" then delete_card(id_list)
     when "checklist" then checklist(id_list)
     end
   end
