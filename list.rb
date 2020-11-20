@@ -1,6 +1,8 @@
 class List
   @@id = 0
 
+  attr_reader :id, :name, :cards
+
   def initialize(id: nil, name: "", cards: [])
     @id = id || next_id
     @@id = @id > @@id ? @id : @@id

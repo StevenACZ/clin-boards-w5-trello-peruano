@@ -17,7 +17,7 @@ class ClinBoards
   end
 
   def start
-    until welcome
+    until welcome(@store)
       option = gets.chomp
       case option
       when "create" then create
