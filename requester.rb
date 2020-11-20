@@ -20,4 +20,12 @@ module Requester
     due_date = gets.chomp
     [title, members, labels, due_date]
   end
+
+  def name_and_description
+    print "Name: "
+    name = gets.chomp
+    print "Description: "
+    description = gets.chomp
+    [name, description]
+  end
 end
