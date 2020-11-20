@@ -9,10 +9,12 @@ module Formatter #Board_Menu
     table.headings = %w[ID Name Description List]
     table.rows = [[boards.id, boards.name, boards.description, boards.list]]
     puts table
-    puts "Board options: create | show ID | update ID |" delete ID
+    puts "Board options: create | show ID | update ID | delete ID" 
+    gets.chomp
   end
-
-  def table; end
+  give_board(board)
 end
+
+
 
 board = Board.new(name: "Default", description: "Description default")
