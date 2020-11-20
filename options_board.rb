@@ -21,8 +21,8 @@ module OptionsBoard
       show_list(id_board)
       puts "List options: create-list | update-list LISTNAME | delete-list LISTNAME"
       puts "Card options: create-card | checklist ID | update-card ID | delete-card ID"
-      option_list, id_list = gets.chomp.split(" ")
-      show_options(option_list, id_list, id_board)
+      option_list, id_list, extra = gets.chomp.split(" ")
+      show_options(option_list, id_list, id_board, extra)
       break if option_list == "back"
     end
   end
