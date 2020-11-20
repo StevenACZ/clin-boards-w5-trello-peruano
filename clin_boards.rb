@@ -1,5 +1,8 @@
 require_relative "formatter"
 require_relative "requester"
+require_relative "options_board"
+require_relative "options_card"
+require_relative "options_list"
 require_relative "list"
 require_relative "card"
 require_relative "checklist"
@@ -10,6 +13,9 @@ require "json"
 class ClinBoards
   include Formatter
   include Requester
+  include OptionsBoard
+  include OptionsList
+  include OptionsCard
 
   def initialize(filename = "store.json")
     @filename = filename
@@ -29,66 +35,26 @@ class ClinBoards
     end
   end
 
-  def create
-    print "Name: "
-    name = gets.chomp
-    print "Description: "
-    description = gets.chomp
-    new_one = Board.new(name: name, description: description)
-    @store.push(new_one)
-  end
-
-  def update(id)
-    print "Name: "
-    name = gets.chomp
-    print "Description: "
-    description = gets.chomp
-    new_one = Board.new(id: id.to_i, name: name, description: description)
-    @store.reject! { |board| board.id == id.to_i }
-    @store.push(new_one)
-  end
-
-  def delete(id)
-    @store.reject! { |board| board.id == id.to_i }
-  end
-
-  def show(id_board)
-    loop do
-      show_list(id_board)
-      puts "List options: create-list | update-list LISTNAME | delete-list LISTNAME"
-      puts "Card options: create-card | checklist ID | update-card ID | delete-card ID"
-      option_list, id_list = gets.chomp.split(" ")
-      show_options(option_list, id_list)
-      break if option_list == "back"
-    end
-  end
-
-  def exit
-    puts "####################################"
-    puts "#   Thanks for using CLIn Boards   #"
-    puts "####################################"
-  end
-
   private
 
-  def show_options(option_list, id_list)
-    list_options(option_list, id_list)
-    card_options(option_list, id_list)
+  def show_options(option_list, id_list, id_board)
+    list_options(option_list, id_list, id_board)
+    card_options(option_list, id_list, id_board)
   end
 
-  def list_options(option_list, id_list)
+  def list_options(option_list, id_list, id_board)
     case option_list
-    when "create-list" then create_list
+    when "create-list" then create_list(id_board)
     when "update-list" then update_list(id_list)
     when "delete-list" then delete_list(id_list)
     end
   end
 
-  def card_options(option_list, id_list)
+  def card_options(option_list, id_list, id_board)
     case option_list
-    when "create-card" then create_card(id_list)
+    when "create-card" then create_card(id_board)
     when "update-card" then update_card(id_list)
-    when "delete-card" then delete_card(id_list)
+    when "delete-card" then delete_card(id_board, id_list)
     when "checklist" then checklist(id_list)
     end
   end
