@@ -28,4 +28,9 @@ module Requester
     description = gets.chomp
     [name, description]
   end
+
+  def only_name
+    print "Name: "
+    gets.chomp
+  end
 end
