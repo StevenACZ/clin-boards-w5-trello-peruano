@@ -1,3 +1,5 @@
 module Requester
-  def option_table; end
+  def option_table
+    
+  end
 end
