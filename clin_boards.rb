@@ -49,7 +49,7 @@ class ClinBoards
     @store.push(new_one)
   end
 
-  def show(id)
+  def show(_id)
     p @store
   end
 
