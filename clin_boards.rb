@@ -26,28 +26,28 @@ class ClinBoards
       when "delete" then delete(id)
       when "exit"
         exit
-        break
+        # break
       end
     end
   end
 
   def parse_json
-    data = JSON.parse(File.read(@filename))
+    data = JSON.parse(File.read(@filename), symbolize_names: true)
     data.map! do |board|
       board_to_object(board)
-      Board.new(id = board["id"], name = board["name"], description = board["description"], lists = board["lists"])
+      Board.new(board)
     end
     data
   end
 
-  def create
-  end
-  def show(id)
-  end
-  def update(id)
-  end
-  def delete(id)
-  end
+  def create; end
+
+  def show(id); end
+
+  def update(id); end
+
+  def delete(id); end
+
   def exit
     puts "####################################"
     puts "#   Thanks for using CLIn Boards   #"
@@ -57,15 +57,14 @@ class ClinBoards
   private
 
   def board_to_object(board)
-    board["lists"].map! do |list|
-      list["cards"].map! do |card|
-        card["checklist"].map! { |check| Checklist.new(title = check["title"], completed = check["completed"]) }
-        Card.new(id = card["id"], title = card["title"], members = card["members"], labels = card["labels"], due_date = card["due_date"], checklist = card["checklist"])
+    board[:lists].map! do |list|
+      list[:cards].map! do |card|
+        card[:checklist].map! { |check| Checklist.new(check) }
+        Card.new(card)
       end
-      List.new(id = list["id"], name = list["name"], cards = list["cards"])
+      List.new(list)
     end
   end
-
 end
 
 app = ClinBoards.new

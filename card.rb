@@ -1,14 +1,14 @@
 class Card
   @@id = 0
 
-  def initialize(id = nil, title = "", members = [], labels = [], due_date = "", checklist = [])
+  def initialize(id: nil, title: "", **rest)
     @id = id || next_id
     @@id = @id > @@id ? @id : @@id
     @title = title
-    @members = members
-    @labels = labels
-    @due_date = due_date
-    @checklist = checklist
+    @members = rest[:members] || []
+    @labels = rest[:labels] || []
+    @due_date = rest[:due_date] || ""
+    @checklist = rest[:checklist] || []
   end
 
   def next_id

@@ -3,7 +3,7 @@ class Board
 
   attr_reader :id, :name, :description, :lists
 
-  def initialize(id = nil, name = "", description = "", lists = [])
+  def initialize(id: nil, name: "", description: "", lists: [])
     @id = id || next_id
     @@id = @id > @@id ? @id : @@id
     @name = name

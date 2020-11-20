@@ -1,7 +1,7 @@
 class List
   @@id = 0
 
-  def initialize(id = nil, name = "", cards = [])
+  def initialize(id: nil, name: "", cards: [])
     @id = id || next_id
     @@id = @id > @@id ? @id : @@id
     @name = name
