@@ -23,16 +23,20 @@ class ClinBoards
   end
 
   def start
-    until welcome(@store)
+    option_board = ""
+    greeting
+    until option_board == "exit"
+      welcome(@store)
       option_board, id_board = gets.chomp.split(" ")
       case option_board
       when "create" then create
       when "update" then update(id_board)
       when "delete" then delete(id_board)
       when "show" then show(id_board)
-      when "exit" then exit
+      else puts "Your option is invalid, try again!"
       end
     end
+    finish
   end
 
   private
