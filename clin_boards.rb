@@ -18,7 +18,7 @@ class ClinBoards
 
   def start
     until welcome
-      option = gets.chomp
+      option, id = gets.chomp.split(" ")
       case option
       when "create" then create
       when "show" then show(id)
@@ -49,11 +49,15 @@ class ClinBoards
     @store.push(new_one)
   end
 
-  def show(id); end
+  def show(id)
+    p @store
+  end
 
   def update(id); end
 
-  def delete(id); end
+  def delete(id)
+    @store.reject! { |board| board.id == id.to_i }
+  end
 
   def exit
     puts "####################################"
