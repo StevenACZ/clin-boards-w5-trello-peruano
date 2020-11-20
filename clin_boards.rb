@@ -51,6 +51,7 @@ class ClinBoards
 
   def show(_id)
     p @store
+    puts
   end
 
   def update(id)
