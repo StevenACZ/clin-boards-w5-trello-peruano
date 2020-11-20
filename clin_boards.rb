@@ -30,20 +30,14 @@ class ClinBoards
   end
 
   def create
-    print "Name: "
-    name = gets.chomp
-    print "Description: "
-    description = gets.chomp
-    new_one = Board.new(name: name, description: description)
+    res = name_and_description
+    new_one = Board.new(name: res[0], description: res[1])
     @store.push(new_one)
   end
 
   def update(id)
-    print "Name: "
-    name = gets.chomp
-    print "Description: "
-    description = gets.chomp
-    new_one = Board.new(id: id.to_i, name: name, description: description)
+    res = name_and_description
+    new_one = Board.new(id: id.to_i, name: res[0], description: res[1])
     @store.reject! { |board| board.id == id.to_i }
     @store.push(new_one)
   end
@@ -60,6 +54,22 @@ class ClinBoards
       option_list, id_list = gets.chomp.split(" ")
       show_options(option_list, id_list, id_board)
       break if option_list == "back"
+    end
+  end
+
+  def create_card(id_board)
+    list_select = requester_create_card_option(id_board)
+    resul = requester_create_card
+    card_data = { id: nil, title: resul[0], members: resul[1], labels: resul[2], due_date: resul[3] }
+    new_card = Card.new(card_data)
+    card_created_send(id_board, list_select, new_card)
+  end
+
+  def delete_card(id_board, id_list)
+    @store.each do |item|
+      next unless item.id == id_board.to_i
+
+      item.lists.each { |list| list.cards.reject! { |card| card.id == id_list.to_i } }
     end
   end
 
@@ -82,17 +92,9 @@ class ClinBoards
     case option_list
     when "create-card" then create_card(id_board)
     when "update-card" then update_card(id_list)
-    when "delete-card" then delete_card(id_list)
+    when "delete-card" then delete_card(id_board, id_list)
     when "checklist" then checklist(id_list)
     end
-  end
-
-  def create_card(id_list)
-    list_select = requester_create_card_option(id_list)
-    resul = requester_create_card
-    card_data = { id: nil, title: resul[0], members: resul[1], labels: resul[2], due_date: resul[3] }
-    new_card = Card.new(card_data)
-    card_created_send(id_list, list_select, new_card)
   end
 
   def card_created_send(id_list, list_select, new_card)
