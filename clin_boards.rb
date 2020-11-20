@@ -37,23 +37,23 @@ class ClinBoards
 
   private
 
-  def show_options(option_list, id_list, id_board)
-    list_options(option_list, id_list, id_board)
+  def show_options(option_list, id_list, id_board, extra)
+    list_options(option_list, id_list, id_board, extra)
     card_options(option_list, id_list, id_board)
   end
 
-  def list_options(option_list, id_list, id_board)
+  def list_options(option_list, id_list, id_board, extra)
     case option_list
     when "create-list" then create_list(id_board)
-    when "update-list" then update_list(id_list)
-    when "delete-list" then delete_list(id_list)
+    when "update-list" then update_list(id_board, id_list, extra)
+    when "delete-list" then delete_list(id_board, id_list, extra)
     end
   end
 
   def card_options(option_list, id_list, id_board)
     case option_list
     when "create-card" then create_card(id_board)
-    when "update-card" then update_card(id_list)
+    when "update-card" then update_card(id_board, id_list)
     when "delete-card" then delete_card(id_board, id_list)
     when "checklist" then checklist(id_list)
     end
