@@ -1,6 +1,8 @@
 class Card
   @@id = 0
 
+  attr_reader :id, :title, :members, :labels, :due_date, :checklist
+
   def initialize(id: nil, title: "", **rest)
     @id = id || next_id
     @@id = @id > @@id ? @id : @@id
