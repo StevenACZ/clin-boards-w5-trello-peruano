@@ -30,4 +30,24 @@ module Formatter
   def list_get_cards_size(board)
     board.lists.map { |list| list.cards.size }
   end
+
+  def show_list(id)
+    (@store.select { |board| board.id == id.to_i })[0].lists.each do |list|
+      table = Terminal::Table.new
+      table.title = list.name.to_s
+      table.headings = %w[ID Title Members Labels Due\ Date Checklist]
+      table.rows = list.cards.map do |card|
+        [card.id, card.title, card.members.join(", "), card.labels.join(", "), card.due_date, n_check(card.checklist)]
+      end
+      puts table
+    end
+  end
+
+  def n_check(checklist)
+    completed = 0
+    checklist.each do |check|
+      check.completed == true && completed += 1
+    end
+    "#{completed}/#{checklist.size}"
+  end
 end
