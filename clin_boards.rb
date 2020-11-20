@@ -58,22 +58,16 @@ class ClinBoards
       puts "List options: create-list | update-list LISTNAME | delete-list LISTNAME"
       puts "Card options: create-card | checklist ID | update-card ID | delete-card ID"
       option_list, id_list = gets.chomp.split(" ")
-      show_options(option_list, id_list)
+      show_options(option_list, id_list, id_board)
       break if option_list == "back"
     end
   end
 
-  def exit
-    puts "####################################"
-    puts "#   Thanks for using CLIn Boards   #"
-    puts "####################################"
-  end
-
   private
 
-  def show_options(option_list, id_list)
+  def show_options(option_list, id_list, id_board)
     list_options(option_list, id_list)
-    card_options(option_list, id_list)
+    card_options(option_list, id_list, id_board)
   end
 
   def list_options(option_list, id_list)
@@ -84,12 +78,30 @@ class ClinBoards
     end
   end
 
-  def card_options(option_list, id_list)
+  def card_options(option_list, id_list, id_board)
     case option_list
-    when "create-card" then create_card(id_list)
+    when "create-card" then create_card(id_board)
     when "update-card" then update_card(id_list)
     when "delete-card" then delete_card(id_list)
     when "checklist" then checklist(id_list)
+    end
+  end
+
+  def create_card(id_list)
+    list_select = requester_create_card_option(id_list)
+    resul = requester_create_card
+    card_data = { id: nil, title: resul[0], members: resul[1], labels: resul[2], due_date: resul[3] }
+    new_card = Card.new(card_data)
+    card_created_send(id_list, list_select, new_card)
+  end
+
+  def card_created_send(id_list, list_select, new_card)
+    @store.each do |board|
+      next unless board.id == id_list.to_i
+
+      board.lists.each do |list|
+        list.cards.push(new_card) if list.name == list_select
+      end
     end
   end
 
