@@ -53,7 +53,15 @@ class ClinBoards
     p @store
   end
 
-  def update(id); end
+  def update(id)
+    print "Name: "
+    name = gets.chomp
+    print "Description: "
+    description = gets.chomp
+    new_one = Board.new(id: id.to_i, name: name, description: description)
+    @store.reject! { |board| board.id == id.to_i }
+    @store.push(new_one)
+  end
 
   def delete(id)
     @store.reject! { |board| board.id == id.to_i }
