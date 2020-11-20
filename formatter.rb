@@ -1,4 +1,4 @@
-require_relative "Board"
+require_relative "board"
 require "terminal-table"
 
 module Formatter
