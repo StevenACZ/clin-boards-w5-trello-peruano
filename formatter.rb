@@ -1,12 +1,18 @@
-module Formatter
-  def welcome
-    rows = []
-    rows << ["One", 1]
-    rows << ["Two", 2]
-    rows << ["Three", 3]
-    table = Terminal::Table.new title: "Cheatsheet", headings: %w[Word Number], rows: rows
+require_relative 'Board'
+require 'terminal-table'
+
+module Formatter #Board_Menu
+
+  def give_board(boards)
+    table = Terminal::Table.new
+    table.title = boards.name
+    table.headings = %w[ID Name Description List]
+    table.rows = [[boards.id, boards.name, boards.description, boards.list]]
     puts table
+    puts "Board options: create | show ID | update ID |" delete ID
   end
 
   def table; end
 end
+
+board = Board.new(name: "Default", description: "Description default")
