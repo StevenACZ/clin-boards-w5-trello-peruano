@@ -17,7 +17,7 @@ class ClinBoards
   end
 
   def start
-    until welcome(boards)
+    until welcome(@store)
       option, id = gets.chomp.split(" ")
       case option
       when "create" then create
