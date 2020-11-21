@@ -69,7 +69,7 @@ class ClinBoards
     case option_list
     when "add" then add_check_item(id_board, id_list)
     when "toggle" then toggle_check_item(id_board, id_list, index)
-    when "delete" then toggle_delete_item(id_board, id_list, index)
+    when "delete" then delete_check_item(id_board, id_list, index)
     end
   end
 

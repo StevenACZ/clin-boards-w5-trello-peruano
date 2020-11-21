@@ -52,4 +52,18 @@ module OptionsCheckList
       end
     end
   end
+
+  def delete_check_item(id_board, id_list, index)
+    @store.each do |item|
+      next unless item.id == id_board.to_i
+
+      item.lists.each do |list|
+        list.cards.each do |card|
+          next unless card.id == id_list.to_i
+
+          card.checklist.delete_at(index.to_i - 1)
+        end
+      end
+    end
+  end
 end
