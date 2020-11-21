@@ -1,6 +1,4 @@
 module Requester
-  def option_table; end
-
   def requester_create_card_option(id_list)
     puts "Select a list:"
     board = (@store.select { |item| item.id == id_list.to_i })[0]

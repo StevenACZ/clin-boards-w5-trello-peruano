@@ -23,6 +23,8 @@ module OptionsList
     update(id_board, id_list, list_name, name)
   end
 
+  private
+
   # rubocop:disable Metrics/AbcSize
   def update(id_board, id_list, list_name, name)
     @store.each do |item|
