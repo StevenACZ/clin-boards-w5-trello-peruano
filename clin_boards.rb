@@ -3,6 +3,7 @@ require_relative "requester"
 require_relative "options_board"
 require_relative "options_card"
 require_relative "options_list"
+require_relative "options_checklist"
 require_relative "list"
 require_relative "card"
 require_relative "checklist"
@@ -16,6 +17,7 @@ class ClinBoards
   include OptionsBoard
   include OptionsList
   include OptionsCard
+  include OptionsCheckList
 
   def initialize(filename = "store.json")
     @filename = filename
@@ -39,17 +41,6 @@ class ClinBoards
     finish
   end
 
-  def show_checklist(id_board, id_list)
-    loop do
-      show_card_checklist(id_board, id_list)
-      puts "-------------------------------------"
-      puts "Checklist options: add | toggle INDEX | delete INDEX"
-      option_list, id_list, extra = gets.chomp.split(" ")
-      show_options(option_list, id_list, id_board, extra)
-      break if option_list == "back"
-    end
-  end
-
   private
 
   def show_options(option_list, id_list, id_board, extra)
@@ -71,6 +62,14 @@ class ClinBoards
     when "update-card" then update_card(id_board, id_list)
     when "delete-card" then delete_card(id_board, id_list)
     when "checklist" then show_checklist(id_board, id_list)
+    end
+  end
+
+  def show_options_checklist(option_list, id_list, id_board, index, _extra)
+    case option_list
+    when "add" then add_check_item(id_board, id_list)
+    when "toggle" then toggle_check_item(id_board, id_list, index)
+    when "delete" then delete_check_item(id_board, id_list, index)
     end
   end
 

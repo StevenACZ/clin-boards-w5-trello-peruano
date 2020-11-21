@@ -1,6 +1,4 @@
 module Requester
-  def option_table; end
-
   def requester_create_card_option(id_list)
     puts "Select a list:"
     board = (@store.select { |item| item.id == id_list.to_i })[0]
@@ -52,5 +50,10 @@ module Requester
     print "Due Date: "
     due_date = gets.chomp
     @info = [title, members, labels, due_date]
+  end
+    
+  def only_title
+    print "Title: "
+    gets.chomp
   end
 end

@@ -15,6 +15,8 @@ module OptionsCard
     end
   end
 
+  private
+
   def card_created_send(id_list, list_select, new_card)
     @store.each do |board|
       next unless board.id == id_list.to_i
