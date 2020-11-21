@@ -33,4 +33,9 @@ module Requester
     print "Name: "
     gets.chomp
   end
+
+  def only_title
+    print "Title: "
+    gets.chomp
+  end
 end

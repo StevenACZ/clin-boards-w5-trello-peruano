@@ -36,4 +36,20 @@ module OptionsCheckList
     card.checklist.reject! { |check| check.title == title }
     card.checklist.push(new_check)
   end
+
+  def add_check_item(id_board, id_list)
+    title = only_title
+    @store.each do |item|
+      next unless item.id == id_board.to_i
+
+      item.lists.each do |list|
+        list.cards.each do |card|
+          next unless card.id == id_list.to_i
+
+          new_check = Checklist.new(title: title, completed: false)
+          card.checklist.push(new_check)
+        end
+      end
+    end
+  end
 end

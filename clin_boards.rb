@@ -67,7 +67,7 @@ class ClinBoards
 
   def show_options_checklist(option_list, id_list, id_board, index, _extra)
     case option_list
-    when "add" then toggle_add_item(id_board, id_list)
+    when "add" then add_check_item(id_board, id_list)
     when "toggle" then toggle_check_item(id_board, id_list, index)
     when "delete" then toggle_delete_item(id_board, id_list, index)
     end
