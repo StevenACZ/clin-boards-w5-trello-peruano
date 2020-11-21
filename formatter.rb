@@ -24,7 +24,7 @@ module Formatter
 
   def show_card(card)
     puts "Card: #{card.title}"
-    card.checklist.each { |check| puts "#{check.completed ? '[x]' : '[ ]'} 1. #{check.title}" }
+    card.checklist.each_with_index  { |check, index| puts "#{check.completed ? '[x]' : '[ ]'} #{index + 1}. #{check.title}" }
   end
 
   def welcome(boards)
