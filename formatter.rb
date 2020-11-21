@@ -2,7 +2,6 @@ require_relative "board"
 require "terminal-table"
 
 module Formatter
-
   def greeting
     puts "####################################"
     puts "#     Welcome to CLIn Boards       #"
@@ -17,11 +16,15 @@ module Formatter
         list.cards.each do |card|
           next unless card.id == id_list.to_i
 
-          puts "Card: #{ card.title}"
-          card.checklist.each { |check| puts "#{check.completed ? "[x]" : "[ ]"} 1. #{check.title}" }
+          show_card(card)
         end
       end
     end
+  end
+
+  def show_card(card)
+    puts "Card: #{card.title}"
+    card.checklist.each { |check| puts "#{check.completed ? '[x]' : '[ ]'} 1. #{check.title}" }
   end
 
   def welcome(boards)

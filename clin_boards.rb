@@ -38,7 +38,7 @@ class ClinBoards
     end
     finish
   end
-  
+
   def show_checklist(id_board, id_list)
     loop do
       show_card_checklist(id_board, id_list)
