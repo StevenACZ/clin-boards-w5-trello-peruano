@@ -26,4 +26,24 @@ module OptionsCard
       end
     end
   end
+  # rubocop:disable Metrics/AbcSize
+
+  def update_card(id_board, id_list)
+    update_card_selecter(id_list)
+    update_card_requester
+    card_updated = Card.new(id: id_list.to_i, title: @info[0], members: @info[1], labels: @info[2], due_date: @info[3])
+
+    @store.each do |board|
+      next unless board.id == id_board.to_i
+
+      board.lists.each do |list|
+        next unless list.name == @list_select
+
+        list.cards.reject! { |card| card.id == id_list.to_i }
+        list.cards.push(card_updated)
+      end
+    end
+    p @card_updated
+  end
+  # rubocop:enable Metrics/AbcSize
 end
