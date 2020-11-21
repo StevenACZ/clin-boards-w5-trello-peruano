@@ -25,18 +25,6 @@ module OptionsCheckList
     end
   end
 
-  def toggle_check(card, index)
-    title = card.checklist[index.to_i - 1].title
-    completed = card.checklist[index.to_i - 1].completed
-    toggle(title, completed, card)
-  end
-
-  def toggle(title, completed, card)
-    new_check = Checklist.new(title: title, completed: !completed)
-    card.checklist.reject! { |check| check.title == title }
-    card.checklist.push(new_check)
-  end
-
   def add_check_item(id_board, id_list)
     title = only_title
     @store.each do |item|
@@ -51,5 +39,33 @@ module OptionsCheckList
         end
       end
     end
+  end
+
+  def delete_check_item(id_board, id_list, index)
+    @store.each do |item|
+      next unless item.id == id_board.to_i
+
+      item.lists.each do |list|
+        list.cards.each do |card|
+          next unless card.id == id_list.to_i
+
+          card.checklist.delete_at(index.to_i - 1)
+        end
+      end
+    end
+  end
+
+  private
+
+  def toggle_check(card, index)
+    title = card.checklist[index.to_i - 1].title
+    completed = card.checklist[index.to_i - 1].completed
+    toggle(title, completed, card)
+  end
+
+  def toggle(title, completed, card)
+    new_check = Checklist.new(title: title, completed: !completed)
+    card.checklist.reject! { |check| check.title == title }
+    card.checklist.push(new_check)
   end
 end
