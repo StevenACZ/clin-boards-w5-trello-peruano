@@ -19,13 +19,21 @@ module OptionsCheckList
         list.cards.each do |card|
           next unless card.id == id_list.to_i
 
-          title = card.checklist[index.to_i - 1].title
-          completed = card.checklist[index.to_i - 1].completed
-          new_check = Checklist.new(title: title, completed: !completed)
-          card.checklist.reject! { |check| check.title == title }
-          card.checklist.push(new_check)
+          toggle_check(card, index)
         end
       end
     end
+  end
+
+  def toggle_check(card, index)
+    title = card.checklist[index.to_i - 1].title
+    completed = card.checklist[index.to_i - 1].completed
+    toggle(title, completed, card)
+  end
+
+  def toggle(title, completed, card)
+    new_check = Checklist.new(title: title, completed: !completed)
+    card.checklist.reject! { |check| check.title == title }
+    card.checklist.push(new_check)
   end
 end
