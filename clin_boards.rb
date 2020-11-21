@@ -38,6 +38,17 @@ class ClinBoards
     end
     finish
   end
+  
+  def show_checklist(id_board, id_list)
+    loop do
+      show_card_checklist(id_board, id_list)
+      puts "-------------------------------------"
+      puts "Checklist options: add | toggle INDEX | delete INDEX"
+      option_list, id_list, extra = gets.chomp.split(" ")
+      show_options(option_list, id_list, id_board, extra)
+      break if option_list == "back"
+    end
+  end
 
   private
 
@@ -59,7 +70,7 @@ class ClinBoards
     when "create-card" then create_card(id_board)
     when "update-card" then update_card(id_board, id_list)
     when "delete-card" then delete_card(id_board, id_list)
-    when "checklist" then checklist(id_list)
+    when "checklist" then show_checklist(id_board, id_list)
     end
   end
 

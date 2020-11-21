@@ -8,6 +8,22 @@ module Formatter
     puts "#     Welcome to CLIn Boards       #"
     puts "####################################"
   end
+
+  def show_card_checklist(id_board, id_list)
+    @store.each do |item|
+      next unless item.id == id_board.to_i
+
+      item.lists.each do |list|
+        list.cards.each do |card|
+          next unless card.id == id_list.to_i
+
+          puts "Card: #{ card.title}"
+          card.checklist.each { |check| puts "#{check.completed ? "[x]" : "[ ]"} 1. #{check.title}" }
+        end
+      end
+    end
+  end
+
   def welcome(boards)
     table = Terminal::Table.new
     table.title = "CLIn Boards"
