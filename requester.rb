@@ -33,4 +33,24 @@ module Requester
     print "Name: "
     gets.chomp
   end
+
+  def update_card_selecter(id_list)
+    puts "Select a list:"
+    board_updater = (@store.select { |item| item.id == id_list.to_i })[0]
+    lists_names = board_updater.lists.map(&:name)
+    puts lists_names.join(" | ")
+    @list_select = gets.chomp
+  end
+
+  def update_card_requester
+    print "Title: "
+    title = gets.chomp
+    print "Members: "
+    members = gets.chomp
+    print "Labels: "
+    labels = gets.chomp
+    print "Due Date: "
+    due_date = gets.chomp
+    @info = [title, members, labels, due_date]
+  end
 end
