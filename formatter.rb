@@ -2,12 +2,31 @@ require_relative "board"
 require "terminal-table"
 
 module Formatter
-
   def greeting
     puts "####################################"
     puts "#     Welcome to CLIn Boards       #"
     puts "####################################"
   end
+
+  def show_card_checklist(id_board, id_list)
+    @store.each do |item|
+      next unless item.id == id_board.to_i
+
+      item.lists.each do |list|
+        list.cards.each do |card|
+          next unless card.id == id_list.to_i
+
+          show_card(card)
+        end
+      end
+    end
+  end
+
+  def show_card(card)
+    puts "Card: #{card.title}"
+    card.checklist.each { |check| puts "#{check.completed ? '[x]' : '[ ]'} 1. #{check.title}" }
+  end
+
   def welcome(boards)
     table = Terminal::Table.new
     table.title = "CLIn Boards"
